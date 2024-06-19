@@ -2,7 +2,7 @@
 
 1. **Clone the Repository**:
    ```sh
-   git clone https://github.com/Aren2020/EducaWeb.git
+   git clone https://github.com/Aren2020/MyShopWeb.git
    cd EducaWeb
    ```
 
