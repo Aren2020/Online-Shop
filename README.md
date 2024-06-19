@@ -53,5 +53,10 @@
    docker-compose exec web python myshop/manage.py createsuperuser
    ```
 
+7. **Collect Static**:
+   ```sh
+   docker-compose exec web python myshop/manage.py collectstatic
+   ```
+   
 6. **Access the Application**:
    Open your web browser and navigate to `http://localhost:80`.
