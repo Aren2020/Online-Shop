@@ -45,12 +45,12 @@
 
 4. **Apply Migrations**:
    ```sh
-   docker-compose exec web python manage.py migrate
+   docker-compose exec web python myshop/manage.py migrate
    ```
 
 5. **Create a Superuser**:
    ```sh
-   docker-compose exec web python manage.py createsuperuser
+   docker-compose exec web python myshop/manage.py createsuperuser
    ```
 
 6. **Access the Application**:
