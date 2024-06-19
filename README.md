@@ -1,6 +1,6 @@
-### Ecommerce Application
+# Ecommerce Application
 
-## Create a fully-featured on-line shop
+### Create a fully-featured on-line shop
 
 - Build the models of the product catalog
 - Create a shopping cart using Django sessions
