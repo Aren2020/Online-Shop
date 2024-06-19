@@ -21,7 +21,9 @@
 - Translate URL patterns and build a language selector
 - Translate models using django-parler
 - Localize forms using django-localflavor
+- Add docker compose file
 
+# Installation
 
 ### Steps
 
