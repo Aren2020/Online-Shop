@@ -8,7 +8,7 @@ from .models import OrderItem, Order
 from .forms import OrderCreateForm
 from .tasks import order_created
 from cart.cart import Cart
-import os, pdfkit 
+import os
 
 def order_create(request):
     cart = Cart(request)
@@ -42,18 +42,4 @@ def admin_order_detail(request, order_id):
                   'admin/orders/order/detail.html',
                   {'order': order})
 
-@staff_member_required
-def admin_order_pdf(request, order_id):
-    order = get_object_or_404(Order, id = order_id)
-    html = render_to_string('admin/orders/order/pdf.html',
-                            {'order': order})
-    response = HttpResponse(content_type = 'application/pdf')
-    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
-
-    wkhtmltopdf_path = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-    pdfkit_config = pdfkit.configuration(wkhtmltopdf = wkhtmltopdf_path)
-    
-    pdf_content = pdfkit.from_string(html, False, configuration=pdfkit_config, css = settings.STATIC_ROOT / 'css/pdf.css')
-    response.write(pdf_content)
-    return response
 

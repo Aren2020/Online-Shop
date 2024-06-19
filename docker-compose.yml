@@ -1,0 +1,76 @@
+services:
+  redis:
+    image: redis:7.0.4
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  celery:
+    build: .
+    working_dir: /code/myshop
+    command: celery -A myshop worker --loglevel=info
+    volumes:
+      - .:/code
+    environment:
+      - CELERY_BROKER_URL=amqp://user:password@rabbitmq:5672//
+    depends_on:
+      - redis
+      - rabbitmq
+
+  stripe-cli:
+    image: stripe/stripe-cli
+    command: "listen --api-key sk_test_51NkpteDIOpwhM1gbcNoVYtlx1bARU41UxWWAnu1FskP0Ohp25ARKwZwAtk8WA4NriIEyVjeWzI3j7qSYvvD4VU9f00bqLoIM4G --device-name web --forward-to web:8000/payment/webhook/"
+    environment:
+      - STRIPE_WEBHOOK_SECRET=whsec_5b0fbdd47dacd7aec427f97f10fd54ab43a3bc79f3d7aa3a7ae553af551a5d88
+    depends_on:
+      - web
+
+  db:
+    image: postgres:14.5
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  web:
+    build: .
+    working_dir: /code/myshop
+    command: ["gunicorn", "myshop.wsgi:application",
+              "--bind", "0.0.0.0:8000"]
+    restart: "always"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+      - CELERY_BROKER_URL=amqp://user:password@rabbitmq:5672//
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+
+  nginx:
+    image: nginx:1.23.1
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    ports:
+      - "80:80"
