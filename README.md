@@ -31,6 +31,11 @@
    ```sh
    docker-compose exec stripe-cli stripe login
    ```
+7. **Restart the container**
+   ```sh
+   docker-compose down
+   docker-compose up
+   ```
 
-8. **Access the Application**:
+9. **Access the Application**:
    Open your web browser and navigate to `http://localhost:80`.
