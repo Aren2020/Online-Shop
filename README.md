@@ -23,7 +23,7 @@
 - Localize forms using django-localflavor
 - Add docker compose file
 
-# Installation
+## Installation
 
 ### Steps
 
