@@ -1,4 +1,4 @@
-# Ecommerce Application
+# My Shop 
 
 ### Create a fully-featured on-line shop
 
