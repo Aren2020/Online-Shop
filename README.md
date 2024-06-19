@@ -26,16 +26,5 @@
    docker-compose exec web python manage.py createsuperuser
    ```
 
-6. **Login in Stripe**:
-   Set your stripe keys then login
-   ```sh
-   docker-compose exec stripe-cli stripe login
-   ```
-7. **Restart the container**
-   ```sh
-   docker-compose down
-   docker-compose up
-   ```
-
-9. **Access the Application**:
+6. **Access the Application**:
    Open your web browser and navigate to `http://localhost:80`.
