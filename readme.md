@@ -1,4 +1,4 @@
-# My Shop 
+# Online-Shop 
 
 ### Create a fully-featured on-line shop
 
@@ -29,8 +29,8 @@
 
 1. **Clone the Repository**:
    ```sh
-   git clone https://github.com/Aren2020/MyShopWeb.git
-   cd EducaWeb
+   git clone https://github.com/Aren2020/Online-Shop.git
+   cd Online-Shop
    ```
 
 2. **Build the Docker Image**:
